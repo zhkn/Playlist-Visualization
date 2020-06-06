@@ -15,7 +15,7 @@ $.ajax({
     } 
 }); 
 var myChart = echarts.init(document.querySelector('.map .chart'));
-var option = {
+let option = {
     color: [
         "#00f2f1",
         "#ed3f35",
@@ -31,7 +31,7 @@ var option = {
         "#fffab0",
     ],
     tooltip: {
-        trigger: 'axis'
+        // trigger: 'axis'
     },
     legend: {
         textStyle: {
@@ -111,53 +111,45 @@ let queryCollection = ['4933141282', '4884876852','4984514920'];
 let finalData;
 // 获取到的全部数据集
 let json;
-$.ajax({
-    type: 'GET',
-    url: csv_file_API,
-    dataType: 'text',
-    error: function (e) {
-        alert('An error occurred while processing API calls');
-    },
-    success: function (data) {
-        json = $.csv.toObjects(data);
-        finalData = [[], [], []];
-        alldates = new Set();
-        // dt = new Date();
-        // date  = dt.getDate();
-        // month = dt.getMonth() + 1;
-        day = 3;
-        month = 6;
-        var list1 = document.getElementById('list1');
-        var list2 = document.getElementById('list2');
-        var list3 = document.getElementById('list3');
-        var list4 = document.getElementById('list4');
-        json.forEach(datum => {
-            datum_date = new Date(datum['日期']);
-            // 只为用户显示(今天获取到的歌单列表)与(之前保存过的歌单列表信息)的交集
-            if (datum_date.getDate() === day && (datum_date.getMonth() + 1) === month && list_up_map.has(datum['歌单id'])) {
-                today_lists.add(datum['歌单id']);
-                if (datum['播放量'] < 10000) {
-                    list_lt_10k.add(datum['歌单id']);
-                    list1.add(new Option(list_up_map.get(datum['歌单id']).name,datum['歌单id']));
-                } else if (datum['播放量'] < 100000) {
-                    list_lt_100k.add(datum['歌单id']);
-                    list2.add(new Option(list_up_map.get(datum['歌单id']).name, datum['歌单id']));
-                } else if (datum['播放量'] < 1000000) {
-                    list_lt_1m.add(datum['歌单id']);
-                    list3.add(new Option(list_up_map.get(datum['歌单id']).name, datum['歌单id']));
-                } else {
-                    list_gt_1m.add(datum['歌单id']);
-                    list4.add(new Option(list_up_map.get(datum['歌单id']).name, datum['歌单id']));
-                }
+$.get(csv_file_API).then(data => {
+    json = $.csv.toObjects(data);
+    finalData = [[], [], []];
+    alldates = new Set();
+    // dt = new Date();
+    // date  = dt.getDate();
+    // month = dt.getMonth() + 1;
+    day = 3;
+    month = 6;
+    var list1 = document.getElementById('list1');
+    var list2 = document.getElementById('list2');
+    var list3 = document.getElementById('list3');
+    var list4 = document.getElementById('list4');
+    json.forEach(datum => {
+        datum_date = new Date(datum['日期']);
+        // 只为用户显示(今天获取到的歌单列表)与(之前保存过的歌单列表信息)的交集
+        if (datum_date.getDate() === day && (datum_date.getMonth() + 1) === month && list_up_map.has(datum['歌单id'])) {
+            today_lists.add(datum['歌单id']);
+            if (datum['播放量'] < 10000) {
+                list_lt_10k.add(datum['歌单id']);
+                list1.add(new Option(list_up_map.get(datum['歌单id']).name, datum['歌单id']));
+            } else if (datum['播放量'] < 100000) {
+                list_lt_100k.add(datum['歌单id']);
+                list2.add(new Option(list_up_map.get(datum['歌单id']).name, datum['歌单id']));
+            } else if (datum['播放量'] < 1000000) {
+                list_lt_1m.add(datum['歌单id']);
+                list3.add(new Option(list_up_map.get(datum['歌单id']).name, datum['歌单id']));
+            } else {
+                list_gt_1m.add(datum['歌单id']);
+                list4.add(new Option(list_up_map.get(datum['歌单id']).name, datum['歌单id']));
             }
-        })
-        document.getElementById('type-list-count').innerHTML = list_up_map.size;
-        document.getElementById('type-up-count').innerHTML = allups.size;
-        console.log(today_lists);
-        refresh();
-        refresh_selected_lists();
-    } // end: Ajax success API call
-}); // end: of Ajax call
+        }
+    })
+    document.getElementById('type-list-count').innerHTML = list_up_map.size;
+    document.getElementById('type-up-count').innerHTML = allups.size;
+    console.log(today_lists);
+    refresh();
+    refresh_selected_lists();
+});
 
 // 刷新已选歌单列表框
 function refresh_selected_lists(){
@@ -168,13 +160,13 @@ function refresh_selected_lists(){
         newButton.setAttribute('value', list_id);
         newButton.className = 'del-btn';
         newButton.innerHTML = '删除';
-        newButton.style = 'float:right;';
+        newButton.style = 'float:right;margin-top:0.1rem';
         var newLine = document.createElement('h2');
-        newLine.style = 'text-align:center;';
+        newLine.style = 'text-align:center;display:inline-block;width:80%;overflow: hidden;white-space :nowrap;text-overflow:ellipsis;';
         newLine.textContent = list_up_map.get(list_id).name;
-        newLine.appendChild(newButton);
         var newLi = document.createElement('li');
         newLi.appendChild(newLine);
+        newLi.appendChild(newButton);
         newLi.setAttribute('style', 'font-size:0.2rem');
         ul.appendChild(newLi);
     }
@@ -182,7 +174,7 @@ function refresh_selected_lists(){
         addLi(query);
     })
 }
-
+let preOption;
 // 刷新页面中间折线图
 function refresh() {
     finalData = [];
@@ -208,11 +200,12 @@ function refresh() {
         ));
     }
     // 为myChart刷新设置, 更新了x轴的数据和series
-    var preOption = myChart.getOption();
-    myChart.clear();
+    preOption = myChart.getOption();
+    // myChart.clear();
     preOption.series = seriesResult;
-    preOption.xAxis.data = Array.from(alldates);
-    myChart.setOption(preOption);
+    preOption.xAxis[0].data = Array.from(alldates);
+    preOption.tooltip[0].trigger= 'axis';
+    myChart.setOption(preOption, true);
 }
 
 // 设置添加/删除按钮事件, 事件最后会触发刷新事件
