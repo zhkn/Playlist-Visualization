@@ -19,6 +19,7 @@ header {
   height: 1.25rem;
   background: url(../images/head_bg.png) no-repeat;
   background-size: 100% 100%;
+  position: relative;
 }
 header h1 {
   font-size: 0.475rem;
@@ -36,8 +37,8 @@ header .showTime {
 }
 .mainbox {
   display: flex;
-  min-width: 1024px;
-  max-width: 24rem;
+  min-width: 768px;
+  max-width: 1920px;
   margin: 0 auto;
   padding: 0.125rem 0.125rem 0;
 }
@@ -47,6 +48,7 @@ header .showTime {
 .mainbox .column:nth-child(2) {
   flex: 5;
   margin: 0 0.125rem 0.1875rem;
+  overflow: hidden;
 }
 .mainbox .panel {
   position: relative;
@@ -110,8 +112,19 @@ header .showTime {
   font-size: 0.25rem;
   font-weight: 400;
 }
+.mainbox .panel h2 a {
+  margin: 0 0.1875rem;
+  color: #fff;
+  text-decoration: underline;
+}
 .mainbox .panel .chart {
   height: 3rem;
+}
+.mainbox .panel select {
+  width: 5rem;
+}
+.mainbox .panel button {
+  left: 1rem;
 }
 .mainbox #sunburst {
   width: 6rem;

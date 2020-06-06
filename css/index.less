@@ -21,6 +21,7 @@
     background: url(../images/head_bg.png)
     no-repeat;
     background-size: 100% 100%;
+    position: relative;
   h1 {
     font-size: 0.475rem;
     color: #ffffff;
@@ -38,8 +39,8 @@
 }
 .mainbox {
   display: flex;
-  min-width: 1024px;
-  max-width: 24rem;
+  min-width: 768px;
+  max-width: 1920px;
   margin: 0 auto;
   padding: 0.125rem 0.125rem 0;
   .column {
@@ -47,6 +48,7 @@
     &:nth-child(2) {
       flex: 5;
       margin: 0 .125rem .1875rem;
+      overflow: hidden;
     }
   }
   .panel {
@@ -109,10 +111,21 @@
       text-align: center;
       font-size: 0.25rem;
       font-weight: 400;
+      a {
+        margin: 0 0.1875rem;
+        color: #fff;
+        text-decoration: underline;
+      }
     }
     .chart {
       height: 3rem;
       // background-color: pink;
+    }
+    select {
+      width: 5rem;
+    }
+    button {
+      left: 1rem;
     }
   }
   #sunburst {
