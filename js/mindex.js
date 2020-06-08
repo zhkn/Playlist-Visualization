@@ -12,8 +12,8 @@ $.ajax({
         allups = new Set(json.map(datum => datum['创建者']));
         document.getElementById('type-list-count').innerHTML = list_up_map.size;
         document.getElementById('type-up-count').innerHTML = allups.size;
-    } 
-}); 
+    }
+});
 var myChart = echarts.init(document.querySelector('.map .chart'));
 var option = {
     color: [
@@ -136,7 +136,7 @@ $.ajax({
 
             }
         })
-        console.log(today_lists);
+        // console.log(today_lists);
         json.forEach(datum => {
             for (i = 0; i < queryCollection.length; i++) {
                 // if (queryCollection[i] === datum['歌单id'] && today_lists.has(datum['歌单id'])) {
@@ -147,10 +147,10 @@ $.ajax({
                 }
             }
         });
-        console.log(finalData);
+        // console.log(finalData);
         seriesResult = [];
         for (i = 0; i < queryCollection.length; i++) {
-            console.log(list_up_map.get(queryCollection[i]));
+            // console.log(list_up_map.get(queryCollection[i]));
             seriesResult.push(new Object(
                 {
                     name: list_up_map.get(queryCollection[i]).name,

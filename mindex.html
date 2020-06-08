@@ -3,8 +3,9 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>网易云歌单可视化</title> 
+        <title>网易云歌单可视化</title>
         <link rel="stylesheet" href="css/index.css">
+        <link rel="shortcut icon" href="#" />
     </head>
     <body>
         <header>
@@ -14,17 +15,17 @@
         </header>
         <section class="mainbox">
             <div class="column">
-                <div class="panel bar">
-                    <h2>左侧图1</h2>
+                <div class="panel left-radial">
+                    <h2>播放量前十的歌单信息</h2>
                     <div class="chart"></div>
                     <div class="panel-footer"></div>
                 </div>
-                <div class="panel sunburst">
+                <div class="panel left-bar">
                     <h2>左侧图2</h2>
-                    <svg class="chart" width="1" height="1920" id="sunburst"></svg>
+                    <div class="chart"></div>
                     <div class="panel-footer"></div>
                 </div>
-                <div class="panel pie">
+                <div class="panel left-pie">
                     <h2>左侧图3</h2>
                     <div class="chart"></div>
                     <div class="panel-footer"></div>
@@ -50,7 +51,7 @@
                 </div>
             </div>
             <div class="column">
-                <div class="panel bar">
+                <div class="panel bar1">
                     <h2>选择歌单</h2>
                     <div class="chart">
                         <!-- <select name="list1" id="list1"></select>
@@ -76,12 +77,13 @@
         </section>
         <script src="js/flexible.js"></script>
         <script src="js/echarts.min.js"></script>
-        <script src="js/d3.min.js"></script>
+        <!-- <script src="js/d3.min.js"></script> -->
         <script src="js/jquery.js"></script>
         <script src="js/jquery.csv.min.js"></script>
         <script src="js/mindex.js"></script>
         <script src="js/left_top_chart.js"></script>
-        <script src="js/sunburst.js"></script>
+        <script src="js/left_middle_chart.js"></script>
         <script src="js/left_bottom_chart.js"></script>
+        <script src="js/test.js"></script>
     </body>
 </html>

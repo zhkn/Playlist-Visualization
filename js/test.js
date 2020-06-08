@@ -1,4 +1,4 @@
-var music_data = [];
+var data;
 
 $(document).ready(function() {
     $.ajax({
@@ -7,10 +7,8 @@ $(document).ready(function() {
         dataType: "text",
         success: function(d) {
           d = $.csv.toObjects(d);
-          music_data = Array.from(d.slice(0, 10));
-          console.log(music_data);
-
-          init_chart();
+          console.log(d);
+          data = d;
         }
    });
 });
@@ -18,7 +16,7 @@ $(document).ready(function() {
 
 
 
-function  init_chart() {
+(function() {
     // 1实例化对象
     var myChart = echarts.init(document.querySelector(".left-radial .chart"));
     // console.log(data.play);
@@ -28,7 +26,7 @@ function  init_chart() {
         // color: ['#70e7ef', '#3a64e9', '#f34646', '#e43185', '#b53edd', '#cddc39', '#ff9800'],
         angleAxis: {
             type: 'category',
-            // data: ["a", "b", "c", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+            // data: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
             // data: [],
             boundaryGap: false,
             axisLine: {
@@ -45,6 +43,12 @@ function  init_chart() {
             // },
             splitLine: {
                 show: false
+            },
+            minorTick: {
+              show: false
+            },
+            minorSplitLine: {
+              show: false
             },
 
         },
@@ -63,7 +67,13 @@ function  init_chart() {
             // z: 10
             splitLine: {
                 show: false
-            }
+            },
+            minorTick: {
+              show: false
+            },
+            minorSplitLine: {
+              show: false
+            },
 
 
         },
@@ -75,43 +85,50 @@ function  init_chart() {
             bottom: 0,
             type: 'scroll',
             orient: 'vertical',
-            data: ['播放量', '收藏量', '评论数', '歌曲数'],
-            textStyle:{
-              color: "rgba(255,255,255,.6) "
-            }
+            data: ['<0.5m/s', '0.5-2m/s', '2-4m/s', '4-6m/s', '6-8m/s', '8-10m/s', '>10m/s']
         },
         series: [
-          // radius: [20, 400],
+        {
+            name: '半径模式',
+            type: 'bar',
+            coordinateSystem: 'polar',
+            clockWise: false ,
+            radius: [20, 400],
+            center: ['40%', '60%'],
+            roseType: 'area',
+      			encode: {
+                  itemName: 'title',
+                  value: 'play'
+      					}
+        }]
+        series: [
+          radius: [20, 400],
           {
             type: 'bar',
-            radius : [20, 110],
-            // data: [6.16, 6.84, 8.49, 8.11, 8.78, 7.13, 5.7, 4.28, 3.79, 4.07, 4.46, 5.76, 7.26, 6.92, 6.92, 5.32],
-            data: getParamValues("play_million"),
+            data: [6.16, 6.84, 8.49, 8.11, 8.78, 7.13, 5.7, 4.28, 3.79, 4.07, 4.46, 5.76, 7.26, 6.92, 6.92, 5.32],
+            // data: data[play],
             coordinateSystem: 'polar',
-            name: '播放量',
+            name: '0.5m/s',
             stack: 'a'
         }, {
             type: 'bar',
-            // data: [5.82, 8.0, 12.36, 11.77, 9.38, 6.19, 4.61, 3.87, 3.44, 3.17, 2.45, 3.58, 6.91, 6.47, 6.47, 5.5],
-
-            data: getParamValues("collection_ten_thousand"),
+            data: [5.82, 8.0, 12.36, 11.77, 9.38, 6.19, 4.61, 3.87, 3.44, 3.17, 2.45, 3.58, 6.91, 6.47, 6.47, 5.5],
+            // data: data.collection,
             coordinateSystem: 'polar',
-            name: '收藏量',
+            name: '0.5-2m/s',
             stack: 'a'
         }, {
             type: 'bar',
-            // data: [3.4, 7.37, 16.29, 12.56, 7.37, 5.04, 1.84, 1.11, 1.89, 2.97, 1.82, 4.11, 10.41, 10.01, 10.01, 3.81],
+            data: [3.4, 7.37, 16.29, 12.56, 7.37, 5.04, 1.84, 1.11, 1.89, 2.97, 1.82, 4.11, 10.41, 10.01, 10.01, 3.81],
             // data: data.comments,
-            data: getParamValues("comments_hundred"),
             coordinateSystem: 'polar',
-            name: '评论数',
+            name: '2-4m/s',
             stack: 'a'
         }, {
             type: 'bar',
-            // data: [6.16, 6.84, 8.49, 8.11, 8.78, 7.13, 5.7, 4.28, 3.79, 4.07, 4.46, 5.76, 7.26, 6.92, 6.92, 5.32],
-            data: getParamValues("songs"),
+            data: [6.16, 6.84, 8.49, 8.11, 8.78, 7.13, 5.7, 4.28, 3.79, 4.07, 4.46, 5.76, 7.26, 6.92, 6.92, 5.32],
             coordinateSystem: 'polar',
-            name: '歌曲数',
+            name: '>10m/s',
             stack: 'a'
         }]
     };
@@ -122,15 +139,4 @@ function  init_chart() {
     window.addEventListener("resize", function() {
       myChart.resize();
     });
-};
-
-
-function getParamValues(name) {
-      var ret = [];
-      for (var i = 0; i < music_data.length; i++) {
-          ret.push(music_data[i][name])
-      }
-      console.log(name);
-      console.log(ret);
-      return ret;
-}
+  })();
