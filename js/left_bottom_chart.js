@@ -1,27 +1,37 @@
-// $(document).ready(function() {
-//     $.ajax({
-//         type: "GET",
-//         url: "data/playlist.csv",
-//         dataType: "text",
-//         success: function(data) {
-//           data = $.csv.toObjects(data);
-//           console.log(data);
-//           var map = new Map();
-//           data.forEach(datum=>{
-//             if (typeof(map[datum.user])=== 'undefined') {
-//                 map[datum.user] = 1;
-//             } else {
-//                 map[datum.user] = map[datum.user] + 1;
-//             }
-//           })
-//           console.log(map);
-//           var arrayObj=Array.from(map);
-//           console.log(arrayObj);
-//           arrayObj.sort(function(a,b){return a[1]-b[1]});
-//           console.log(arrayObj);
-//         }
-//    });
-// });
+var tag_data;
+
+$(document).ready(function() {
+    $.ajax({
+        type: "GET",
+        url: "data/music_message.csv",
+        dataType: "text",
+        success: function(data) {
+          data = $.csv.toObjects(data);
+          // console.log(data);
+          var map = new Map();
+          data.forEach(datum=>{
+            var tag_list = datum.tag.split('-');
+            // console.log(tag_list);
+            for (t of tag_list) {
+              if (!map.has(t)) {
+                  // map[t] = 1;
+                  map.set(t, 1);
+              } else {
+                  // map[t] = map[t] + 1;
+                  map.set(t, map.get(t) + 1);
+              }
+            }
+
+
+          })
+          // console.log(map);
+          var arrayObj=Array.from(map);
+          // console.log(arrayObj);
+          arrayObj.sort(function(a,b){return b[1]-a[1]});
+          // console.log(arrayObj);
+        }
+   });
+});
 
 
 
@@ -37,26 +47,37 @@
             trigger: 'item',
             formatter: "{a} <br/>{b} : {c} ({d}%)"
         },
-        // legend: {
-        //     orient: 'vertical',
-        //     left: 'left',
-        //     data: ["物理", "化学", "生物", "政治", "历史", "地理"]
-        // },
+        legend: {
+            show: true,
+            right: 0,
+            bottom: 0,
+            type: 'scroll',
+            orient: 'vertical',
+            data: ["欧美", "流行", "电子", "影视原声", "说唱", "华语"],
+            textStyle:{
+              color: "rgba(255,255,255,.6) "
+            }
+        },
         series : [
             {
-                name: '单科',
+                name: '华语',
                 type: 'pie',
                 radius : ['5%', '10%'],
+                // label: {
+                //     normal: {
+                //         position: 'inner'
+                //     }
+                // },
                 label: {
-                    normal: {
-                        position: 'inner'
-                    }
+                    show: false,
+                    position: 'outer',
+                    alignTo: 'edge'
                 },
 
                 data:[
                     {
-                        value:'967',
-                        name:'物理',
+                        value:'89',
+                        name:'华语',
                         itemStyle: {
                             emphasis: {
                                 shadowBlur: 10,
@@ -69,7 +90,7 @@
                         }
                     },
                     {
-                        value:'2800',
+                        value:'150',
                         itemStyle: {
                             normal: {
                                 color: 'transparent'
@@ -78,13 +99,16 @@
                     }
                 ]
             },  {
-                name: '化学',
+                name: '说唱',
                 type: 'pie',
                 radius : ['15%', '20%'],
+                label: {
+                    show: false
+                },
                 data:[
                     {
-                        value:'825',
-                        name:'化学',
+                        value:'118',
+                        name:'说唱',
                         itemStyle: {
                             emphasis: {
                                 shadowBlur: 10,
@@ -97,7 +121,7 @@
                         }
                     },
                     {
-                        value:'500',
+                        value:'150',
                         itemStyle: {
                             normal: {
                                 color: 'transparent'
@@ -107,14 +131,17 @@
                 ]
 
             },  {
-                name: '生物',
+                name: '影视原声',
                 type: 'pie',
                 radius : ['25%', '30%'],
+                label: {
+                    show: false
+                },
                 data:[
                     // {value:1078, name:'生物'}
                     {
-                        value:'1078',
-                        name:'生物',
+                        value:'129',
+                        name:'影视原声',
                         itemStyle: {
                             emphasis: {
                                 shadowBlur: 10,
@@ -127,7 +154,7 @@
                         }
                     },
                     {
-                        value:'800',
+                        value:'150',
                         itemStyle: {
                             normal: {
                                 color: 'transparent'
@@ -137,14 +164,17 @@
 
                 ]
             },  {
-                name: '政治',
+                name: '电子',
                 type: 'pie',
                 radius : ['35%', '40%'],
+                label: {
+                    show: false
+                },
                 data:[
                     // {value:981, name:'政治'}
                     {
-                        value:'981',
-                        name:'政治',
+                        value:'300',
+                        name:'电子',
                         itemStyle: {
                             emphasis: {
                                 shadowBlur: 10,
@@ -157,7 +187,7 @@
                         }
                     },
                     {
-                        value:'900',
+                        value:'150',
                         itemStyle: {
                             normal: {
                                 color: 'transparent'
@@ -166,14 +196,17 @@
                     }
                 ]
             },  {
-                name: '历史',
+                name: '流行',
                 type: 'pie',
                 radius : ['45%', '50%'],
+                label: {
+                    show: false
+                },
                 data:[
                     // {value:877, name:'历史'}
                     {
-                        value:'877',
-                        name:'历史',
+                        value:'351',
+                        name:'流行',
                         itemStyle: {
                             emphasis: {
                                 shadowBlur: 10,
@@ -186,7 +219,7 @@
                         }
                     },
                     {
-                        value:'500',
+                        value:'150',
                         itemStyle: {
                             normal: {
                                 color: 'transparent'
@@ -195,14 +228,17 @@
                     }
                 ]
             },  {
-                name: '地理',
+                name: '欧美',
                 type: 'pie',
                 radius : ['55%', '60%'],
+                label: {
+                    show: false
+                },
                 data:[
                     // {value:939, name:'地理'}
                     {
-                        value:'939',
-                        name:'地理',
+                        value:'1302',
+                        name:'欧美',
                         itemStyle: {
                             emphasis: {
                                 shadowBlur: 10,
@@ -215,7 +251,7 @@
                         }
                     },
                     {
-                        value:'200',
+                        value:'150',
                         itemStyle: {
                             normal: {
                                 color: 'transparent'

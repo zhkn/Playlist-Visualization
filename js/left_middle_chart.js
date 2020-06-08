@@ -1,34 +1,38 @@
-// var data;
-//
-// $(document).ready(function() {
-//     $.ajax({
-//         type: "GET",
-//         url: "data/founder_info.csv",
-//         dataType: "csv",
-//         success: function(d) {
-//           //data = $.csv.toObjects(data);
-//           console.log(d);
-//           data = d;
-//         }
-//    });
-// });
+var founder_data;
+
+$(document).ready(function() {
+    $.ajax({
+        type: "GET",
+        url: "data/founder_info.csv",
+        dataType: "text",
+        success: function(d) {
+          d = $.csv.toObjects(d);
+          console.log(d);
+
+          founder_data = Array.from(d.slice(0, 10));
+          console.log(founder_data);
+
+          init_chart();
+        }
+   });
+});
 
 
 
 
 
-(function() {
+function init_chart() {
     var myChart = echarts.init(document.querySelector(".left-bar .chart"));
 
-
-    var xAxisData = [];
-    var data1 = [];
-    var data2 = [];
-    for (var i = 0; i < 100; i++) {
-        xAxisData.push('类目' + i);
-        data1.push((Math.sin(i / 5) * (i / 5 -10) + i / 6) * 5);
-        data2.push((Math.cos(i / 5) * (i / 5 -10) + i / 6) * 5);
-    }
+    var xAxisData = getParamValues1("founder");
+    var data1 = getParamValues1("event_count");
+    var data2 = getParamValues1("fan_count");
+    var data3 = getParamValues1("follow_count");
+    // for (var i = 0; i < 100; i++) {
+        // xAxisData.push('类目' + i);
+        // data1.push((Math.sin(i / 5) * (i / 5 -10) + i / 6) * 5);
+        // data2.push((Math.cos(i / 5) * (i / 5 -10) + i / 6) * 5);
+    // }
 
     var option = {
         legend: {
@@ -91,16 +95,23 @@
           }
         },
         series: [{
-            name: 'bar',
+            name: 'event_count',
             type: 'bar',
             data: data1,
             animationDelay: function (idx) {
                 return idx * 10;
             }
         }, {
-            name: 'bar2',
+            name: 'fan_count',
             type: 'bar',
             data: data2,
+            animationDelay: function (idx) {
+                return idx * 10 + 100;
+            }
+        },{
+            name: 'follow_count',
+            type: 'bar',
+            data: data3,
             animationDelay: function (idx) {
                 return idx * 10 + 100;
             }
@@ -115,4 +126,15 @@
     window.addEventListener("resize", function() {
       myChart.resize();
     });
-  })();
+}
+
+
+  function getParamValues1(name) {
+        var ret = [];
+        for (var i = 0; i < founder_data.length; i++) {
+            ret.push(founder_data[i][name]);
+        }
+        // console.log(name);
+        // console.log(ret);
+        return ret;
+  }

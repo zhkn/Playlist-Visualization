@@ -8,9 +8,9 @@ $(document).ready(function() {
         success: function(d) {
           d = $.csv.toObjects(d);
           music_data = Array.from(d.slice(0, 10));
-          console.log(music_data);
+          // console.log(music_data);
 
-          init_chart();
+          init_chart1();
         }
    });
 });
@@ -18,7 +18,7 @@ $(document).ready(function() {
 
 
 
-function  init_chart() {
+function  init_chart1() {
     // 1实例化对象
     var myChart = echarts.init(document.querySelector(".left-radial .chart"));
     // console.log(data.play);
@@ -130,7 +130,7 @@ function getParamValues(name) {
       for (var i = 0; i < music_data.length; i++) {
           ret.push(music_data[i][name])
       }
-      console.log(name);
-      console.log(ret);
+      // console.log(name);
+      // console.log(ret);
       return ret;
 }
