@@ -2,115 +2,64 @@
 let list_up_map = new Map();
 // 用Set保存今天获取到的歌单列表
 let today_lists = new Set();
-$.ajax({
-    type: 'GET',
-    url: './data/playlist2.csv',
-    dataType: 'text',
-    success: function (data) {
-        json = $.csv.toObjects(data);
-        json.forEach(datum => {
-            list_up_map.set(datum['歌单id'], new Object({name: datum['歌单名'],up:datum['创建者']}));
-        })
-        allups = new Set(json.map(datum => datum['创建者']));
-    } 
-}); 
-var myChart = echarts.init(document.querySelector('.map .chart'));
-let option = {
-    color: [
-        "#00f2f1",
-        "#ed3f35",
-        "#f99289",
-        "#fec8a5",
-        "#febbc4",
-        "#f888c6",
-        "#ab9cc5",
-        "#9d6c87",
-        "#86d9e2",
-        "#a1dbcb",
-        "#d5dcbd",
-        "#fffab0",
-    ],
-    tooltip: {
-        // trigger: 'axis'
-    },
-    legend: {
-        textStyle: {
-            color: "#4c9bfd"
-        },
-        right: "0%"
-    },
-    grid: {
-        top: '10%',
-        left: '0%',
-        right: '5%',
-        bottom: '8%',
-        show: true,
-        borderColor: "#012f4a",
-        containLabel: true
-    },
-    xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: [],
-        axisTick: {
-            show: false
-        },
-        axisLabel: {
-            color: '#4c9bfd'
-        },
-        axisLine: {
-            show: false
+// 出现次数前50的关键词
+let keywords = [];
+// 保存(关键词与出现次数)的Map
+let word_freq = new Map();
+// 关键词统计-柱状图的图元数据
+let kwSeriesData = [];
+
+$.ajax('./data/word_freq.csv').then(data => {
+    data = $.csv.toObjects(data);
+    for (i = 0; i < 20; i++){
+        datum = data[i];
+        word_freq.set(datum['关键词'], +(datum['次数']));
+        keywords.push(datum['关键词']);
+        kwSeriesData[i] = {
+            name: datum['关键词'],
+            type: 'bar',
+            // stack: '总量',
+            data: [0,0,0,0],
         }
-    },
-    yAxis: {
-        type: 'value',
-        axisTick: {
-            show: false
-        },
-        axisLabel: {
-            color: '#4c9bfd'
-        },
-        axisLine: {
-            show: false
-        },
-        splitLine: {
-            lineStyle: {
-                color: 'white'
-            }
-        }
-    },
-    series: [
-        {
-            type: 'line',
-            smooth: true,
-        },
-        {
-            type: 'line',
-            smooth: true,
-        },
-        {
-            type: 'line',
-            smooth: true,
-        }
-    ]
-};
-myChart.setOption(option);
-window.addEventListener("resize", function () {
-    myChart.resize();
+        if (+(datum['次数']) < 100)
+            kwSeriesData[i].stack = '少于100次的关键词';
+        else
+            kwSeriesData[i].stack = '多于100次的关键词';
+
+    }
+    // for (i = 0; i < keywords.length; i ++) 
+    //     // kwSeriesData[i] = [0, 0, 0, 0];
+    //     kwSeriesData[i] = {
+    //         name: typeName,
+    //         type: 'bar',
+    //         stack: '总量',
+    //         data: [0,0,0,0],
+    //     }
 });
+$.ajax('./data/playlist2.csv').then(data => {
+    json = $.csv.toObjects(data);
+    json.forEach(datum => {
+        list_up_map.set(datum['歌单id'], new Object({ name: datum['歌单名'], up: datum['创建者'] }));
+    })
+    allups = new Set(json.map(datum => datum['创建者']));
+}); 
 
 // 播放量小于10k, 100k, 1m, 大于1m的歌单集合
 let list_lt_10k = new Set();
 let list_lt_100k = new Set();
 let list_lt_1m = new Set();
 let list_gt_1m = new Set();
-var csv_file_API = './data/amoutOfPlaylist.csv';
+// 歌单播放量数据文件
+const csv_file_API = './data/amoutOfPlaylist.csv';
 // 存放(要查询的列表)的数组
 let queryCollection = ['4933141282', '4884876852','4984514920'];
 // 存放[(要查询的列表)的数据]的数组
 let finalData;
 // 获取到的全部数据集
 let json;
+// 关键词统计-柱状图的x轴数据
+// let xAxisData4keywords = ['播放量<1w','1w=<播放量<10w','10w=<播放量<100w','大于100w',];
+ 
 $.get(csv_file_API).then(data => {
     json = $.csv.toObjects(data);
     finalData = [[], [], []];
@@ -129,26 +78,42 @@ $.get(csv_file_API).then(data => {
         // 只为用户显示(今天获取到的歌单列表)与(之前保存过的歌单列表信息)的交集
         if (datum_date.getDate() === day && (datum_date.getMonth() + 1) === month && list_up_map.has(datum['歌单id'])) {
             today_lists.add(datum['歌单id']);
+            listName = list_up_map.get(datum['歌单id']).name;
+            var amountLevel;
             if (datum['播放量'] < 10000) {
                 list_lt_10k.add(datum['歌单id']);
-                list1.add(new Option(list_up_map.get(datum['歌单id']).name, datum['歌单id']));
+                list1.add(new Option(listName, datum['歌单id']));
+                amountLevel = 0;
             } else if (datum['播放量'] < 100000) {
                 list_lt_100k.add(datum['歌单id']);
-                list2.add(new Option(list_up_map.get(datum['歌单id']).name, datum['歌单id']));
+                list2.add(new Option(listName, datum['歌单id']));
+                amountLevel = 1;
             } else if (datum['播放量'] < 1000000) {
                 list_lt_1m.add(datum['歌单id']);
-                list3.add(new Option(list_up_map.get(datum['歌单id']).name, datum['歌单id']));
+                list3.add(new Option(listName, datum['歌单id']));
+                amountLevel = 2;
             } else {
                 list_gt_1m.add(datum['歌单id']);
-                list4.add(new Option(list_up_map.get(datum['歌单id']).name, datum['歌单id']));
+                list4.add(new Option(listName, datum['歌单id']));
+                amountLevel = 3;
             }
+
+            wordsContained = '';
+            keywords.forEach((keyword, i) => {
+                if (listName.indexOf(keyword) != -1) {
+                    wordsContained += keyword + ' ';
+                    // kwSeriesData[i][amountLevel] += 1;
+                    kwSeriesData[i].data[amountLevel] += 1;
+                }
+            })
         }
     })
     document.getElementById('type-list-count').innerHTML = list_up_map.size;
     document.getElementById('type-up-count').innerHTML = allups.size;
     console.log(today_lists);
-    refresh();
+    refresh_linechart();
     refresh_selected_lists();
+    load_keywordChart();
 });
 
 // 刷新已选歌单列表框
@@ -174,9 +139,9 @@ function refresh_selected_lists(){
         addLi(query);
     })
 }
-let preOption;
+// let preOption;
 // 刷新页面中间折线图
-function refresh() {
+function refresh_linechart() {
     finalData = [];
     queryCollection.forEach((d, i) => { finalData[i] = []; });
     json.forEach(datum => {
@@ -201,17 +166,24 @@ function refresh() {
     }
     // 为myChart刷新设置, 更新了x轴的数据和series
     preOption = myChart.getOption();
-    // myChart.clear();
     preOption.series = seriesResult;
     preOption.xAxis[0].data = Array.from(alldates);
     preOption.tooltip[0].trigger= 'axis';
     myChart.setOption(preOption, true);
+}
+// 加载关键词-柱状图
+function load_keywordChart() {
+    preOption = keywordChart.getOption();
+    preOption.series = kwSeriesData;
+    preOption.xAxis[0].data = ['[0,1w)','[1w,10w)','[10w,100w)','[100w,∞)',];
+    keywordChart.setOption(preOption);
 }
 
 // 设置添加/删除按钮事件, 事件最后会触发刷新事件
 var refreshTool = $('#refreshTool');
 $('.add-btn').on('click', function() {
     if (queryCollection.indexOf($(this).prev().val()) != -1) return;
+    if (queryCollection.length >= 6) { alert('已达到可选歌单数量上限!');return;}
     queryCollection.push($(this).prev().val());
     refreshTool.trigger('change');
 })
@@ -222,7 +194,7 @@ $('#list-selected').on('click', '.del-btn', function() {
 // 用于实现刷新的工具对象, 并不真实显示在页面中
 $('#refreshTool').change(function() {
     console.log('changed');
-    refresh();
+    refresh_linechart();
     refresh_selected_lists();
     console.log(queryCollection);
 })

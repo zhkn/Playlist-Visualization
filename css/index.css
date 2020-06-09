@@ -55,7 +55,7 @@ header .showTime {
   height: 3.875rem;
   border: 1px solid rgba(25, 186, 139, 0.17);
   margin-bottom: 0.1875rem;
-  padding: 0 0.1875rem 0.5rem;
+  padding: 0 0.1875rem 0.1875rem;
   background: url(../images/line\(1\).png) rgba(255, 255, 255, 0.03);
 }
 .mainbox .panel::before {
