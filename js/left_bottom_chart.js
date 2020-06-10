@@ -39,13 +39,14 @@ $(document).ready(function() {
 
 (function() {
     var myChart = echarts.init(document.querySelector(".left-pie .chart"));
+    var color1 = ["#4777f5","#44aff0","#45dbf7","#f6d54a","#f69846","#ff4343"];
 
 
 
     option = {
         tooltip : {
             trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
+            formatter: "{a} <br/>{b} : {c} "
         },
         legend: {
             show: true,
@@ -73,7 +74,11 @@ $(document).ready(function() {
                     position: 'outer',
                     alignTo: 'edge'
                 },
-
+                itemStyle: {
+                        "normal": {
+                            "color": color1[0]
+                        }
+                },
                 data:[
                     {
                         value:'89',
@@ -83,9 +88,6 @@ $(document).ready(function() {
                                 shadowBlur: 10,
                                 shadowOffsetX: 0,
                                 shadowColor: 'rgba(0, 0, 0, 0.5)',
-                                normal: {
-                                    color: '#dc1439'
-                                }
                             }
                         }
                     },
@@ -105,6 +107,11 @@ $(document).ready(function() {
                 label: {
                     show: false
                 },
+                itemStyle: {
+                        "normal": {
+                            "color": color1[1]
+                        }
+                },
                 data:[
                     {
                         value:'118',
@@ -113,10 +120,7 @@ $(document).ready(function() {
                             emphasis: {
                                 shadowBlur: 10,
                                 shadowOffsetX: 0,
-                                shadowColor: 'rgba(0, 0, 0, 0.5)',
-                                normal: {
-                                    color: '#dc1439'
-                                }
+                                shadowColor: 'rgba(0, 0, 0, 0.5'
                             }
                         }
                     },
@@ -136,6 +140,11 @@ $(document).ready(function() {
                 radius : ['25%', '30%'],
                 label: {
                     show: false
+                },
+                itemStyle: {
+                        "normal": {
+                            "color": color1[2]
+                        }
                 },
                 data:[
                     // {value:1078, name:'生物'}
@@ -170,6 +179,11 @@ $(document).ready(function() {
                 label: {
                     show: false
                 },
+                itemStyle: {
+                        "normal": {
+                            "color": color1[3]
+                        }
+                },
                 data:[
                     // {value:981, name:'政治'}
                     {
@@ -202,6 +216,11 @@ $(document).ready(function() {
                 label: {
                     show: false
                 },
+                itemStyle: {
+                        "normal": {
+                            "color": color1[4]
+                        }
+                },
                 data:[
                     // {value:877, name:'历史'}
                     {
@@ -233,6 +252,11 @@ $(document).ready(function() {
                 radius : ['55%', '60%'],
                 label: {
                     show: false
+                },
+                itemStyle: {
+                        "normal": {
+                            "color": color1[5]
+                        }
                 },
                 data:[
                     // {value:939, name:'地理'}

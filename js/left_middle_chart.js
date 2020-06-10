@@ -124,6 +124,11 @@ function init_chart() {
             data: data1,
             animationDelay: function (idx) {
                 return idx * 10;
+            },
+            itemStyle: {
+                    "normal": {
+                        "color": '#fe8c00'
+                    }
             }
         }, {
             name: '关注数',
@@ -131,6 +136,11 @@ function init_chart() {
             data: data2,
             animationDelay: function (idx) {
                 return idx * 10 + 100;
+            },
+            itemStyle: {
+                    "normal": {
+                        "color": '#595959'
+                    }
             }
         },{
             name: '动态数',
@@ -138,6 +148,11 @@ function init_chart() {
             data: data3,
             animationDelay: function (idx) {
                 return idx * 10 + 100;
+            },
+            itemStyle: {
+                    "normal": {
+                        "color": '#e3ddbd'
+                    }
             }
         }],
         animationEasing: 'elasticOut',

@@ -21,6 +21,8 @@ $(document).ready(function() {
 function  init_chart1() {
     // 1实例化对象
     var myChart = echarts.init(document.querySelector(".left-radial .chart"));
+    var color1 = ["#c6c6bc", "#e3ddbd", "#d3c2ba", "#869f82"]
+    var color2 = ['#375498', '#2e4a7a', '#637696', '#7b8bad']
     // console.log(data.play);
 
     // 2. 指定配置项和数据
@@ -49,21 +51,53 @@ function  init_chart1() {
 
         },
         radiusAxis: {
-            axisLine: {
-                show: false
-            },
-            axisTick: {
-                show: false
-            },
-            // axisLabel: {
-            //     formatter: '{value}%',
-            //     showMaxLabel: false,
-            //     color: '#30465D'
+            // axisLine: {
+            //     show: false
             // },
-            // z: 10
-            splitLine: {
-                show: false
-            }
+            // axisTick: {
+            //     show: false
+            // },
+            // // axisLabel: {
+            // //     formatter: '{value}%',
+            // //     showMaxLabel: false,
+            // //     color: '#30465D'
+            // // },
+            // // z: 10
+            // splitLine: {
+            //     show: false
+            // }
+
+            min: 0,
+           // max: 100,
+           axisLine: {
+               show: false,
+               lineStyle: {
+                   color: "#00c7ff",
+                   width: 1,
+                   type: "dashed"
+               }
+           },
+           axisTick: {
+               show: false
+           },
+           axisLabel: {
+               show: false
+           },
+           splitLine: {
+               lineStyle: {
+                   color: "#eee",
+                   width: 1,
+                   type: "dashed",
+                   opacity: 0.7
+               }
+           },
+           // splitArea: {
+           //     show: true,
+           //     areaStyle: {
+           //         color: '#353535',
+           //         opacity: 0.9
+           //     }
+           // }
 
 
         },
@@ -90,9 +124,9 @@ function  init_chart1() {
             coordinateSystem: 'polar',
             name: '播放量',
             stack: 'a',
-            "itemStyle": {
+            itemStyle: {
                     "normal": {
-                        "color": "#c6c6bc"
+                        "color": color2[0]
                     }
             }
         }, {
@@ -103,9 +137,9 @@ function  init_chart1() {
             coordinateSystem: 'polar',
             name: '收藏量',
             stack: 'a',
-            "itemStyle": {
+            itemStyle: {
                     "normal": {
-                        "color": "#e3ddbd"
+                        "color": color2[1]
                     }
             }
         }, {
@@ -116,9 +150,9 @@ function  init_chart1() {
             coordinateSystem: 'polar',
             name: '评论数',
             stack: 'a',
-            "itemStyle": {
+            itemStyle: {
                     "normal": {
-                        "color": "#d3c2ba"
+                        "color": color2[2]
                     }
             }
         }, {
@@ -128,9 +162,9 @@ function  init_chart1() {
             coordinateSystem: 'polar',
             name: '歌曲数',
             stack: 'a',
-            "itemStyle": {
+            itemStyle: {
                     "normal": {
-                        "color": "#869f82"
+                        "color": color2[3]
                     }
             }
         }]
