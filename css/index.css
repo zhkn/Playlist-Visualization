@@ -4,9 +4,13 @@
   box-sizing: border-box;
 }
 body {
-  background: url(../images/bg.jpg) top center;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #2f4554;
+  top: center;
+  margin: 0;
+  padding: 0;
   line-height: 1.15;
-  background-size: 100%;
+  background-size: cover;
 }
 li {
   list-style: none;
@@ -19,6 +23,7 @@ header {
   height: 1.25rem;
   background: url(../images/head_bg.png) no-repeat;
   background-size: 100% 100%;
+  position: relative;
 }
 header h1 {
   font-size: 0.475rem;
@@ -36,8 +41,8 @@ header .showTime {
 }
 .mainbox {
   display: flex;
-  min-width: 1024px;
-  max-width: 24rem;
+  min-width: 768px;
+  max-width: 1920px;
   margin: 0 auto;
   padding: 0.125rem 0.125rem 0;
 }
@@ -47,13 +52,14 @@ header .showTime {
 .mainbox .column:nth-child(2) {
   flex: 5;
   margin: 0 0.125rem 0.1875rem;
+  overflow: hidden;
 }
 .mainbox .panel {
   position: relative;
   height: 3.875rem;
   border: 1px solid rgba(25, 186, 139, 0.17);
   margin-bottom: 0.1875rem;
-  padding: 0 0.1875rem 0.5rem;
+  padding: 0.1rem 0.1875rem 0.1875rem;
   background: url(../images/line\(1\).png) rgba(255, 255, 255, 0.03);
 }
 .mainbox .panel::before {
@@ -110,8 +116,35 @@ header .showTime {
   font-size: 0.25rem;
   font-weight: 400;
 }
+.mainbox .panel a {
+  margin: 0 0.1875rem;
+  color: #fff;
+  text-decoration: none;
+}
 .mainbox .panel .chart {
   height: 3rem;
+}
+.mainbox .panel select {
+  margin-top: 0.2rem;
+  margin-left: 3%;
+  display: inline-block;
+  direction: ltr;
+  border: 1px solid #E4E4E4;
+  padding-left: 0.1rem;
+  border-radius: 0.04rem;
+  height: 0.4rem;
+  width: 80%;
+}
+.mainbox .panel button {
+  margin-top: 0.02rem;
+  display: inline-block;
+  margin-left: 2%;
+  padding: 0.02rem 0.1rem;
+  border: 1px solid #E4E4E4;
+  border-radius: 0.04rem;
+  height: 0.4rem;
+  outline: none;
+  width: 12%;
 }
 .mainbox #sunburst {
   width: 6rem;
@@ -218,4 +251,8 @@ header .showTime {
   html {
     font-size: 80px !important;
   }
+}
+#listsBar {
+  height: 7rem;
+  display: block;
 }

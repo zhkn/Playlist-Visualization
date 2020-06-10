@@ -4,10 +4,15 @@
     box-sizing: border-box;
   }
   body {
-    background: url(../images/bg.jpg)
-    top center;
+  font-family: Arial, Helvetica, sans-serif;
+  // background: url(../images/bg.jpg);
+    background-color: #2f4554;
+    // background-color: #2C3E50;
+    top: center;
+    margin: 0;
+    padding: 0;
     line-height: 1.15;
-    background-size: 100%;
+    background-size: cover;
   }
   li {
     list-style: none;
@@ -21,6 +26,7 @@
     background: url(../images/head_bg.png)
     no-repeat;
     background-size: 100% 100%;
+    position: relative;
   h1 {
     font-size: 0.475rem;
     color: #ffffff;
@@ -38,8 +44,8 @@
 }
 .mainbox {
   display: flex;
-  min-width: 1024px;
-  max-width: 24rem;
+  min-width: 768px;
+  max-width: 1920px;
   margin: 0 auto;
   padding: 0.125rem 0.125rem 0;
   .column {
@@ -47,6 +53,7 @@
     &:nth-child(2) {
       flex: 5;
       margin: 0 .125rem .1875rem;
+      overflow: hidden;
     }
   }
   .panel {
@@ -54,7 +61,8 @@
     height: 3.875rem;
     border: 1px solid rgba(25, 186, 139, 0.17);
     margin-bottom: 0.1875rem;
-    padding: 0 0.1875rem 0.5rem;
+    // padding: 0 0.1875rem 0.5rem;
+    padding: 0.1rem 0.1875rem 0.1875rem;
     background: url(../images/line\(1\).png) rgba(255, 255, 255, 0.03);
     &::before {
       position: absolute;
@@ -109,10 +117,38 @@
       text-align: center;
       font-size: 0.25rem;
       font-weight: 400;
+      
+    }
+    a {
+      margin: 0 0.1875rem;
+      color: #fff;
+      text-decoration: none;
     }
     .chart {
       height: 3rem;
       // background-color: pink;
+    }
+    select {
+      margin-top: 0.2rem;
+      margin-left: 3%;
+      display: inline-block;
+      direction: ltr;
+      border: 1px solid #E4E4E4;
+      padding-left: 0.1rem;
+      border-radius: .04rem;
+      height: 0.4rem;
+      width: 80%;
+    }
+    button {
+      margin-top: 0.02rem;
+      display: inline-block;
+      margin-left:2%;
+      padding:0.02rem 0.1rem;
+      border: 1px solid #E4E4E4;
+      border-radius: .04rem;
+      height: 0.4rem;
+      outline: none;
+      width: 12%;
     }
   }
   #sunburst {
@@ -120,6 +156,7 @@
     height: 3rem;
   }
 }
+
 .no {
   background: rgba(101, 132, 226, 0.1);
   padding: 0.1875rem;
@@ -223,4 +260,10 @@
   html {
     font-size: 80px !important;
   }
+}
+
+#listsBar {
+  // background-color: rgba(25, 186, 139, 1);
+  height: 7rem;
+  display: block;
 }

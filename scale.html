@@ -1,0 +1,49 @@
+<HTML>
+    <HEAD>
+    <TITLE>JS+CSS制作的DIV层最小化和随意拖拽排序功能</TITLE>
+    <style type="text/css">
+    .normal
+    {
+    /* position:absolute; */
+    width:300px;
+    #height:10px;
+    border:1px solid #666666;
+    }
+    </style>
+    </HEAD>
+    <BODY >
+        <div class="normal" >
+            <table width="100%">
+                <tbody>
+                    <tr bgcolor="#CCCCCC" bar="yes">
+                        <td>百度</td>
+                        <td><a href="#" onclick="openClose(this)">-</a></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">地址:http://www.baidu.com</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">关键字:</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">说明:</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </BODY>
+    <SCRIPT LANGUAGE="JavaScript">
+    // <!--
+        function openClose(obj) {
+            obj.innerHTML = obj.innerHTML == "-" ? "+" : "-";
+            while (obj.tagName != "TBODY") {
+                obj = obj.parentNode;
+            }
+            for (i = 0; i < obj.childNodes.length; i++) {
+                if (obj.childNodes[i].nodeName == "#text"
+                    || obj.childNodes[i].getAttribute("bar")) { continue; }
+                obj.childNodes[i].style.display = obj.childNodes[i].style.display == "" ? "none" : "";
+            }
+        }
+    </SCRIPT>
+    </HTML>
