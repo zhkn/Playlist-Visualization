@@ -9,7 +9,7 @@ $(document).ready(function() {
           d = $.csv.toObjects(d);
           console.log(d);
 
-          founder_data = Array.from(d.slice(0, 10));
+          founder_data = Array.from(d.slice(0, 30));
           console.log(founder_data);
 
           init_chart();
