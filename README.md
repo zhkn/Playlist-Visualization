@@ -7,5 +7,5 @@ python -m SimpleHTTPServer
 
 打开：
 ```
-http://localhost:8000/mindex.html
+http://localhost:8000/index.html
 ```
