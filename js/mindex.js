@@ -34,7 +34,7 @@ $.ajax('./data/playlist2.csv').then(data => {
         list_up_map.set(datum['歌单id'], new Object({ name: datum['歌单名'], up: datum['创建者'] }));
     })
     allups = new Set(json.map(datum => datum['创建者']));
-}); 
+});
 
 // 播放量小于10k, 100k, 1m, 大于1m的歌单集合
 let list_lt_10k = new Set();
@@ -51,7 +51,7 @@ let finalData;
 let json;
 // 关键词统计-柱状图的x轴数据
 // let xAxisData4keywords = ['播放量<1w','1w=<播放量<10w','10w=<播放量<100w','大于100w',];
- 
+
 $.get(csv_file_API).then(data => {
     json = $.csv.toObjects(data);
     finalData = [[], [], []];
