@@ -27,14 +27,6 @@ $.ajax('./data/word_freq.csv').then(data => {
             kwSeriesData[i].stack = '多于100次的关键词';
 
     }
-    // for (i = 0; i < keywords.length; i ++) 
-    //     // kwSeriesData[i] = [0, 0, 0, 0];
-    //     kwSeriesData[i] = {
-    //         name: typeName,
-    //         type: 'bar',
-    //         stack: '总量',
-    //         data: [0,0,0,0],
-    //     }
 });
 $.ajax('./data/playlist2.csv').then(data => {
     json = $.csv.toObjects(data);
@@ -67,7 +59,7 @@ $.get(csv_file_API).then(data => {
     // dt = new Date();
     // date  = dt.getDate();
     // month = dt.getMonth() + 1;
-    day = 3;
+    day = 9;
     month = 6;
     var list1 = document.getElementById('list1');
     var list2 = document.getElementById('list2');
@@ -198,3 +190,25 @@ $('#refreshTool').change(function() {
     refresh_selected_lists();
     console.log(queryCollection);
 })
+
+function openClose(obj) {
+    // obj.innerHTML = obj.innerHTML == "隐藏" ? "展开" : "隐藏";
+    // listsBar = document.getElementById('listsBar');
+    // console.log(listsBar.style.display);
+    // listsBar.style.display = listsBar.style.display ==  "" ? "none" : "";
+    // rightTop1 = document.getElementById('rightTop1');
+    // rightTop1.style.display = rightTop1.style.display ==  "" ? "none" : "";
+    // listsBar.style.backgroundColor= 'rgba(25, 186, 139, 0.17)';
+
+    rightTop1 = document.getElementById('rightTop1');
+    rightTop2 = document.getElementById('rightTop2');
+    if (obj.innerHTML == "隐藏") {
+        // obj.innerHTML == "展开";
+        rightTop1.style.display = "none";
+        rightTop2.style.display = "";
+    } else {
+        // obj.innerHTML == "展开";
+        rightTop1.style.display = "";
+        rightTop2.style.display = "none";
+    }
+}

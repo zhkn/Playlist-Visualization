@@ -27,16 +27,19 @@ let option4LineChart = {
         textStyle: {
             color: "#4c9bfd"
         },
+        top: "1%",
         right: "0%",
         left: '20%',
+        
     },
     grid: {
         top: '10%',
         left: '2%',
-        right: '7%',
+        right: '9%',
         bottom: '8%',
         show: true,
         borderColor: "#012f4a",
+        // borderColor: 'black',
         containLabel: true
     },
     xAxis: {
@@ -47,10 +50,14 @@ let option4LineChart = {
             show: false
         },
         axisLabel: {
-            color: '#4c9bfd'
+            // color: '#4c9bfd'
+            color: 'white',
         },
         axisLine: {
-            show: false
+            show: true,
+            lineStyle: {
+                color: '#012f4a'
+            }
         },
         nameLocation: 'end',
         name: '日期',
@@ -65,7 +72,8 @@ let option4LineChart = {
             show: false
         },
         axisLabel: {
-            color: '#4c9bfd'
+            // color: '#4c9bfd'
+            color: 'white',
         },
         axisLine: {
             show: false
@@ -98,18 +106,22 @@ let option4KeywordChart = {
     legend: {
         type: 'scroll',
         orient: 'horizontal',
-        right: 10,
-        top: 10,
-        // bottom: 20,
+        right: '3%',
+        left: '3%',
         textStyle: {
-            color: "#4c9bfd"
+            // color: "#4c9bfd"
+            color: 'white',
         },
+        pageIconColor: 'white',
+        pageTextStyle: {
+            color: 'white',
+        }
     },
     grid: {
-        left: '3%',
-        right: '5%',
+        left: '0%',
+        right: '0%',
         top: '23%',
-        bottom: '5%',
+        bottom: '8%',
         containLabel: true
     },
     xAxis: [
@@ -120,7 +132,7 @@ let option4KeywordChart = {
             name: '播放量区间',
             nameTextStyle: {
                 color: 'white',
-                padding: 5,
+                padding: 10,
             },
             axisLabel: {
                 color: 'white',

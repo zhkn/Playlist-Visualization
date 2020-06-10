@@ -50,30 +50,41 @@
                 </div>
             </div>
             <div class="column">
-                <div class="panel bar" style="height: 8rem;">
-                    <h2>选择歌单</h2>
-                    <div class="chart">
-                        <select name="list1" id="list1"></select>
-                        <button class="add-btn">添加</button>
-                        <select name="list2" id="list2"></select>
-                        <button class="add-btn">添加</button>
-                        <select name="list3" id="list3"></select>
-                        <button class="add-btn">添加</button>
-                        <select name="list4" id="list4"></select>
-                        <button class="add-btn">添加</button>
+                <div id="rightTop1" class="panel bar" style="height: 7.9375rem;">
+                    <!-- <a href="#" onclick="openClose(this)">隐藏</a> -->
+                    <div id="listsBar">
+                        <h2>选择歌单</h2>
+                        <div class="chart" style="height: 2.5rem;">
+                            <select name="list1" id="list1"></select>
+                            <button class="add-btn">添加</button>
+                            <select name="list2" id="list2"></select>
+                            <button class="add-btn">添加</button>
+                            <select name="list3" id="list3"></select>
+                            <button class="add-btn">添加</button>
+                            <select name="list4" id="list4"></select>
+                            <button class="add-btn">添加</button>
+                        </div>
+                        <div class="chart" style="height: 4rem;">
+                            <h2>已选歌单</h2>
+                            <ul id="list-selected"></ul>
+                        </div>
+                        <div class="panel-footer"></div>
                     </div>
-                    <!-- <div class="chart" style="background-color: aquamarine;height: 4rem;"> -->
-                    <div class="chart" style="height: 4rem;">
-                        <h2>已选歌单</h2>
-                        <ul id="list-selected"></ul>
-                    </div>
-                    <div class="panel-footer"></div>
+                    
                 </div>
-                <!-- <div class="panel bar">
-                    <h2>右侧图2</h2>
-                    <div class="chart"></div>
-                    <div class="panel-footer"></div>
-                </div> -->
+                <div id="rightTop2" style="display: none;">
+                    <div class="panel bar">
+                        <a href="#" onclick="openClose(this)">展开</a>
+                        <h2>右侧图1</h2>
+                        <div class="chart"></div>
+                        <div class="panel-footer"></div>
+                    </div>
+                    <div class="panel bar">
+                        <h2>右侧图2</h2>
+                        <div class="chart"></div>
+                        <div class="panel-footer"></div>
+                    </div>
+                </div>
                 <div class="panel bar" id="keywordChart">
                     <h2>右侧图3</h2>
                     <div class="chart"></div>
@@ -89,7 +100,6 @@
         <script src="js/jquery.csv.min.js"></script>
         <script src="js/utils.js"></script>
         <script src="js/chartOptions.js"></script>
-        <!-- <script src="js/word_cloud.js"></script> -->
         <script src="js/mindex.js"></script>
         <script src="js/left_top_chart.js"></script>
         <script src="js/sunburst.js"></script>
