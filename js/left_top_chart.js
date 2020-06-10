@@ -89,7 +89,12 @@ function  init_chart1() {
             data: getParamValues("play_million"),
             coordinateSystem: 'polar',
             name: '播放量',
-            stack: 'a'
+            stack: 'a',
+            "itemStyle": {
+                    "normal": {
+                        "color": "#c6c6bc"
+                    }
+            }
         }, {
             type: 'bar',
             // data: [5.82, 8.0, 12.36, 11.77, 9.38, 6.19, 4.61, 3.87, 3.44, 3.17, 2.45, 3.58, 6.91, 6.47, 6.47, 5.5],
@@ -97,7 +102,12 @@ function  init_chart1() {
             data: getParamValues("collection_ten_thousand"),
             coordinateSystem: 'polar',
             name: '收藏量',
-            stack: 'a'
+            stack: 'a',
+            "itemStyle": {
+                    "normal": {
+                        "color": "#e3ddbd"
+                    }
+            }
         }, {
             type: 'bar',
             // data: [3.4, 7.37, 16.29, 12.56, 7.37, 5.04, 1.84, 1.11, 1.89, 2.97, 1.82, 4.11, 10.41, 10.01, 10.01, 3.81],
@@ -105,14 +115,24 @@ function  init_chart1() {
             data: getParamValues("comments_hundred"),
             coordinateSystem: 'polar',
             name: '评论数',
-            stack: 'a'
+            stack: 'a',
+            "itemStyle": {
+                    "normal": {
+                        "color": "#d3c2ba"
+                    }
+            }
         }, {
             type: 'bar',
             // data: [6.16, 6.84, 8.49, 8.11, 8.78, 7.13, 5.7, 4.28, 3.79, 4.07, 4.46, 5.76, 7.26, 6.92, 6.92, 5.32],
             data: getParamValues("songs"),
             coordinateSystem: 'polar',
             name: '歌曲数',
-            stack: 'a'
+            stack: 'a',
+            "itemStyle": {
+                    "normal": {
+                        "color": "#869f82"
+                    }
+            }
         }]
     };
 

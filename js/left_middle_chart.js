@@ -9,7 +9,8 @@ $(document).ready(function() {
           d = $.csv.toObjects(d);
           console.log(d);
 
-          founder_data = Array.from(d.slice(0, 30));
+          founder_data = Array.from(d.slice(0, 60));
+          // founder_data = Array.from(d);
           console.log(founder_data);
 
           init_chart();
@@ -25,9 +26,10 @@ function init_chart() {
     var myChart = echarts.init(document.querySelector(".left-bar .chart"));
 
     var xAxisData = getParamValues1("founder");
-    var data1 = getParamValues1("event_count");
-    var data2 = getParamValues1("fan_count");
-    var data3 = getParamValues1("follow_count");
+    // var xAxisData = Array.from(new Array(31).keys()).slice(1, 31);
+    var data1 = getParamValues1("fan_count");
+    var data2 = getParamValues1("follow_count");
+    var data3 = getParamValues1("event_count");
     // for (var i = 0; i < 100; i++) {
         // xAxisData.push('类目' + i);
         // data1.push((Math.sin(i / 5) * (i / 5 -10) + i / 6) * 5);
@@ -36,17 +38,15 @@ function init_chart() {
 
     var option = {
         legend: {
-            data: ['bar', 'bar2'],
+            data: ['粉丝数', '关注数', '动态数'],
+            selected: {
+                '粉丝数': true,
+                '关注数': true,
+                '动态数':false
+            },
             textStyle:{
               color: "rgba(255,255,255,.6) "
             }
-            // data: [{
-            //           name: '系列1',
-            //           // 设置文本为红色
-            //           textStyle: {
-            //               color: 'red'
-            //           }
-            //       }]
         },
         toolbox: {
             // y: 'bottom',
@@ -56,6 +56,24 @@ function init_chart() {
                 },
             }
         },
+        dataZoom: [
+          {
+              show: true,
+              height: 10,
+              start: 0,
+              end: 30,
+              bottom:"0.0000001%",
+          },
+          // {
+          //     show: true,
+          //     yAxisIndex: 0,
+          //     // filterMode: 'empty',
+          //     width: 10,
+          //     // height: '80%',
+          //     // showDataShadow: false,
+          //     // left: '93%'
+          // }
+        ],
         tooltip: {},
         grid: {
           left: "0%",
@@ -75,12 +93,14 @@ function init_chart() {
             },
             // 修改刻度标签 相关样式
             axisLabel: {
+              show: false,
               color: "rgba(255,255,255,.6) ",
               fontSize: "12"
             }
 
         },
         yAxis: {
+          type:'log',
           splitLine: {
               show: false
           },
@@ -91,25 +111,29 @@ function init_chart() {
           // 修改刻度标签 相关样式
           axisLabel: {
             color: "rgba(255,255,255,.6) ",
-            fontSize: "12"
+            fontSize: "12",
+            formatter: function(value, index){
+              if (value === 0.01) return 0;
+              else return value;
+            }
           }
         },
         series: [{
-            name: 'event_count',
+            name: '粉丝数',
             type: 'bar',
             data: data1,
             animationDelay: function (idx) {
                 return idx * 10;
             }
         }, {
-            name: 'fan_count',
+            name: '关注数',
             type: 'bar',
             data: data2,
             animationDelay: function (idx) {
                 return idx * 10 + 100;
             }
         },{
-            name: 'follow_count',
+            name: '动态数',
             type: 'bar',
             data: data3,
             animationDelay: function (idx) {
