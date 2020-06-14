@@ -36,7 +36,7 @@ let option4LineChart = {
         top: '10%',
         left: '2%',
         right: '9%',
-        bottom: '8%',
+        bottom: '5%',
         show: true,
         borderColor: "#012f4a",
         // borderColor: 'black',

@@ -46,7 +46,10 @@ function init_chart() {
             },
             textStyle:{
               color: "rgba(255,255,255,.6) "
-            }
+            },
+            orient: 'vertical',
+            right: 0,
+            bottom: 0,
         },
         toolbox: {
             // y: 'bottom',
@@ -76,10 +79,14 @@ function init_chart() {
         ],
         tooltip: {},
         grid: {
-          left: "0%",
-          top: "10px",
-          right: "0%",
-          bottom: "4%",
+          // left: "0%",
+          // top: "10px",
+          // right: "0%",
+          // bottom: "4%",
+          left: 0,
+          top: '5%',
+          right: '20%',
+          bottom: '5%',
           containLabel: true
         },
         xAxis: {
